@@ -16,6 +16,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   void initState() {
     super.initState();
     controller.countDownTime();
+    controller.index.value =0;
   }
 
   @override
@@ -103,7 +104,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     return InkWell(
       onTap: () {
         controller.result(text);
-
         if (controller.index.value != controller.quizList.length - 1) {
           controller.count.value = 20;
           controller.index.value = controller.index.value + 1;

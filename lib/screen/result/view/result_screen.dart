@@ -31,7 +31,7 @@ class _ResultScreenState extends State<ResultScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: MediaQuery.sizeOf(context).height * 0.2,
+                  height: MediaQuery.sizeOf(context).height * 0.22,
                   width: MediaQuery.sizeOf(context).width,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
