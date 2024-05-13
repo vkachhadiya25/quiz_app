@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:quiz_app/screen/home/model/home_model.dart';
 import 'package:quiz_app/utils/api_helper.dart';
@@ -7,6 +9,8 @@ class HomeController extends GetxController {
   RxList<QuizModel> quizList = <QuizModel>[].obs;
   RxInt index = 0.obs;
   RxInt totalScore = 0.obs;
+  RxInt count = 20.obs;
+  Timer? timer;
 
   Future<void> getQuiz() async {
     APIHelper apiHelper = APIHelper();
@@ -32,13 +36,27 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<void> questionNext() async {
-    if (homeModel.value != null &&
-        index.value != homeModel.value!.resultList!.length - 1) {
-      index.value++;
+
+  void result(String selectAns) {
+    if (selectAns == quizList[index.value].correct_answer) {
+      totalScore.value++;
     }
   }
 
-  void result() {
+  void countDownTime() {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (count > 0 && index.value != quizList.length) {
+        count.value--;
+      } else {
+        if (index.value != quizList.length - 1) {
+          index.value++;
+        } else {
+          timer.cancel();
+          Get.offAllNamed('result');
+        }
+        count.value = 20;
+      }
+      print("$count");
+    });
   }
 }
